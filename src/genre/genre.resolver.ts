@@ -1,4 +1,3 @@
-import { NotFoundException } from '@nestjs/common';
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { CreateGenreInput } from './create-genre.input';
 import { GenreInput } from './genre.input';

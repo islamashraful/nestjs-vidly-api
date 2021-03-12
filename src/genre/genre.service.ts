@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateGenreInput } from './create-genre.input';
@@ -11,8 +11,17 @@ export class GenreService {
     @InjectRepository(Genre) private genreRepository: Repository<Genre>,
   ) {}
 
-  getGenres() {
-    return [{ id: '1', name: 'Comedy' }];
+  getGenres(): Promise<Genre[]> {
+    return this.genreRepository.find();
+  }
+
+  async getGenre(id: string): Promise<Genre> {
+    const genre = await this.genreRepository.findOne({ id });
+    if (!genre) {
+      throw new NotFoundException();
+    }
+
+    return genre;
   }
 
   createGenre(createGenreInput: CreateGenreInput): Promise<Genre> {
@@ -24,5 +33,24 @@ export class GenreService {
     });
 
     return this.genreRepository.save(genre);
+  }
+
+  async updateGenre(id: string, name: string): Promise<Genre> {
+    const genre = await this.getGenre(id);
+    genre.name = name;
+
+    return this.genreRepository.save(genre);
+  }
+
+  async deleteGenre(id: string) {
+    // TODO: Optimize here. Support return nullable value from resolver
+    const genre = await this.getGenre(id);
+    const result = await this.genreRepository.delete({ id });
+
+    if (result.affected === 0) {
+      throw new NotFoundException(`Genre with ID ${id} not found`);
+    }
+
+    return genre;
   }
 }

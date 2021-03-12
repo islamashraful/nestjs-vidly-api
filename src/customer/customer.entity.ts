@@ -12,7 +12,7 @@ export class Customer {
   name: string;
 
   @Column()
-  isGold: string;
+  isGold: boolean;
 
   @Column()
   phone: string;

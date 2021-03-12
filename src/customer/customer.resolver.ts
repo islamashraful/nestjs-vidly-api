@@ -1,4 +1,5 @@
-import { Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { CreateCustomerInput } from './create-customer.input';
 import { CustomerService } from './customer.service';
 import { CustomerType } from './customer.type';
 
@@ -8,6 +9,13 @@ export class CustomerResolver {
 
   @Query((returns) => [CustomerType])
   customers() {
-    return this.customerService.getGenres();
+    return this.customerService.getCustomers();
+  }
+
+  @Mutation((returns) => CustomerType)
+  createCustomer(
+    @Args('createCustomerInput') createCustomerInput: CreateCustomerInput,
+  ) {
+    return this.customerService.createCustomer(createCustomerInput);
   }
 }

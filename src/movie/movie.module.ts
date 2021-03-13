@@ -3,9 +3,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MovieResolver } from './movie.resolver';
 import { MovieService } from './movie.service';
 import { Movie } from './movie.entity';
+import { GenreModule } from 'src/genre/genre.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Movie])],
+  imports: [TypeOrmModule.forFeature([Movie]), GenreModule],
   providers: [MovieService, MovieResolver],
 })
 export class MovieModule {}

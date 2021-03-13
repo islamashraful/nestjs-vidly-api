@@ -1,4 +1,5 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { GenreType } from 'src/genre/genre.type';
 
 @ObjectType('Movie')
 export class MovieType {
@@ -13,4 +14,7 @@ export class MovieType {
 
   @Field()
   dailyRentalRate: number;
+
+  @Field((type) => GenreType)
+  genre: string;
 }

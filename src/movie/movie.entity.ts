@@ -16,4 +16,7 @@ export class Movie {
 
   @Column()
   dailyRentalRate: number;
+
+  @Column()
+  genre: string;
 }

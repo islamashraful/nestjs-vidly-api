@@ -1,5 +1,5 @@
 import { InputType, Field, ID } from '@nestjs/graphql';
-import { MinLength, MaxLength, Min } from 'class-validator';
+import { MinLength, MaxLength, Min, IsUUID, IsOptional } from 'class-validator';
 
 @InputType()
 export class CreateMovieInput {
@@ -15,4 +15,9 @@ export class CreateMovieInput {
   @Min(0)
   @Field()
   dailyRentalRate: number;
+
+  @IsOptional()
+  @IsUUID('4')
+  @Field(() => ID, { defaultValue: null })
+  genre: string;
 }

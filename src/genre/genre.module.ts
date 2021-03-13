@@ -7,5 +7,6 @@ import { GenreService } from './genre.service';
 @Module({
   imports: [TypeOrmModule.forFeature([Genre])],
   providers: [GenreResolver, GenreService],
+  exports: [GenreService],
 })
 export class GenreModule {}

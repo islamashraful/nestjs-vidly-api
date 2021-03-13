@@ -35,7 +35,7 @@ export class CustomerResolver {
 
   // TODO: Reuse UpdateCustomerInput in here and remove CustomerInput
   @Mutation((returns) => CustomerType)
-  deleteGenre(@Args('customerInput') customerInput: CustomerInput) {
+  deleteCustomer(@Args('customerInput') customerInput: CustomerInput) {
     return this.customerService.deleteCustomer(customerInput.id);
   }
 }

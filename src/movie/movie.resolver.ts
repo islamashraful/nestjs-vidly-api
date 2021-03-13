@@ -3,6 +3,7 @@ import { CreateMovieInput } from './create-movie.input';
 import { MovieInput } from './movie.input';
 import { MovieService } from './movie.service';
 import { MovieType } from './movie.type';
+import { UpdateMovieInput } from './update-movie.input';
 
 @Resolver((of) => MovieType)
 export class MovieResolver {
@@ -26,5 +27,10 @@ export class MovieResolver {
   @Mutation((returns) => MovieType)
   createMovie(@Args('createMovieInput') createMovieInput: CreateMovieInput) {
     return this.movieService.createMovie(createMovieInput);
+  }
+
+  @Mutation((returns) => MovieType)
+  updateMovie(@Args('updateMovieInput') updateMovieInput: UpdateMovieInput) {
+    return this.movieService.updateMovie(updateMovieInput);
   }
 }

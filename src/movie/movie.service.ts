@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Movie } from './movie.entity';
 import { CreateMovieInput } from './create-movie.input';
 import { GenreService } from 'src/genre/genre.service';
+import { UpdateMovieInput } from './update-movie.input';
 
 @Injectable()
 export class MovieService {
@@ -49,6 +50,31 @@ export class MovieService {
       dailyRentalRate,
       genre,
     });
+
+    return this.movieRepository.save(movie);
+  }
+
+  async updateMovie(updateMovieInput: UpdateMovieInput) {
+    const {
+      id,
+      title,
+      numberInStock,
+      dailyRentalRate,
+      genreId,
+    } = updateMovieInput;
+
+    if (genreId) {
+      await this.genreService.getGenre(genreId);
+    }
+
+    let movie = await this.getMovie(id);
+    movie = {
+      ...movie,
+      ...(title && { title }),
+      ...(numberInStock && { numberInStock }),
+      ...(dailyRentalRate && { dailyRentalRate }),
+      ...(genreId && { genre: genreId }),
+    };
 
     return this.movieRepository.save(movie);
   }

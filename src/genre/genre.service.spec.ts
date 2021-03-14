@@ -1,5 +1,5 @@
 describe('GenreService', () => {
   it('should pass this dummy test', () => {
-    expect(true).toBe(true);
+    expect(false).toBe(false);
   });
 });

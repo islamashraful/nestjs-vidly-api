@@ -33,7 +33,7 @@ export class GenreResolver {
   }
 
   @Mutation((returns) => GenreType)
-  createGenre(@Args('createStudentInput') createGenreInput: CreateGenreInput) {
+  createGenre(@Args('createGenreInput') createGenreInput: CreateGenreInput) {
     this.logger.verbose(
       `Creating genre with input ${JSON.stringify(createGenreInput)}.`,
     );

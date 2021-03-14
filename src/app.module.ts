@@ -10,6 +10,7 @@ import { Movie } from './movie/movie.entity';
 import { ConfigModule } from '@nestjs/config';
 import { configuration } from './config/configuration';
 import { validationSchema } from './config/validation';
+import { RentalModule } from './rental/rental.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { validationSchema } from './config/validation';
     GenreModule,
     CustomerModule,
     MovieModule,
+    RentalModule,
   ],
   controllers: [],
   providers: [],

@@ -22,7 +22,7 @@ import { Rental } from './rental/rental.entity';
     }),
     TypeOrmModule.forRoot({
       type: 'mongodb',
-      url: `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.aums2.mongodb.net/nestjs-graphql?retryWrites=true&w=majority`,
+      url: `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.aums2.mongodb.net/nestjs-vidly-api?retryWrites=true&w=majority`,
       synchronize: true,
       useUnifiedTopology: true,
       entities: [Genre, Customer, Movie, Rental],

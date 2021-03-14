@@ -16,7 +16,7 @@ export class RentalService {
   ) {}
 
   getRentals() {
-    return [];
+    return this.rentalRepository.find();
   }
 
   async createRental(createRentalInput: CreateRentalInput) {

@@ -1,5 +1,11 @@
-// TODO: Use strong typing here
-export const configuration = () => ({
+export interface AppConfigurationType {
+  environment: string;
+  port: string;
+  DB_USERNAME: string;
+  DB_PASSWORD: string;
+}
+
+export const configuration: () => AppConfigurationType = () => ({
   environment: process.env.NODE_ENV,
   port: process.env.PORT,
   DB_USERNAME: process.env.DB_USERNAME,

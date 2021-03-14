@@ -11,6 +11,7 @@ import { ConfigModule } from '@nestjs/config';
 import { configuration } from './config/configuration';
 import { validationSchema } from './config/validation';
 import { RentalModule } from './rental/rental.module';
+import { Rental } from './rental/rental.entity';
 
 @Module({
   imports: [
@@ -24,7 +25,7 @@ import { RentalModule } from './rental/rental.module';
       url: `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.aums2.mongodb.net/nestjs-graphql?retryWrites=true&w=majority`,
       synchronize: true,
       useUnifiedTopology: true,
-      entities: [Genre, Customer, Movie],
+      entities: [Genre, Customer, Movie, Rental],
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: true,

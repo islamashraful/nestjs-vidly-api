@@ -8,9 +8,6 @@ export class RentalType {
   id: string;
 
   @Field()
-  name: string;
-
-  @Field()
   dateOut: string;
 
   @Field((type) => CustomerType)

@@ -21,7 +21,7 @@ export class MovieService {
   async getMovie(id: string) {
     const movie = await this.movieRepository.findOne({ id });
     if (!movie) {
-      throw new NotFoundException();
+      throw new NotFoundException('Movie with the given ID not found');
     }
 
     return movie;
@@ -70,10 +70,16 @@ export class MovieService {
     let movie = await this.getMovie(id);
     movie = {
       ...movie,
-      ...(title && { title }),
-      ...(numberInStock && { numberInStock }),
-      ...(dailyRentalRate && { dailyRentalRate }),
-      ...(genreId && { genre: genreId }),
+      ...(title !== null && title !== undefined && { title }),
+      ...(numberInStock !== null &&
+        numberInStock !== undefined && {
+          numberInStock,
+        }),
+      ...(dailyRentalRate !== null &&
+        dailyRentalRate !== undefined && {
+          dailyRentalRate,
+        }),
+      ...(genreId !== null && genreId !== undefined && { genre: genreId }),
     };
 
     return this.movieRepository.save(movie);

@@ -8,5 +8,6 @@ import { GenreModule } from 'src/genre/genre.module';
 @Module({
   imports: [TypeOrmModule.forFeature([Movie]), GenreModule],
   providers: [MovieService, MovieResolver],
+  exports: [MovieService],
 })
 export class MovieModule {}

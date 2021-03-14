@@ -84,4 +84,13 @@ export class MovieService {
 
     return this.movieRepository.save(movie);
   }
+
+  async decreaseNumberInStock(movieId: string) {
+    let movie = await this.getMovie(movieId);
+    movie = {
+      ...movie,
+      numberInStock: movie.numberInStock - 1,
+    };
+    return this.movieRepository.save(movie);
+  }
 }

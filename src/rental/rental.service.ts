@@ -36,7 +36,8 @@ export class RentalService {
       dateOut: new Date().toISOString(),
     });
 
-    // TODO: Decrement value of numberInStock
+    // TODO: Implement transaction
+    await this.movieService.decreaseNumberInStock(movieId);
 
     return this.rentalRepository.save(rental);
   }

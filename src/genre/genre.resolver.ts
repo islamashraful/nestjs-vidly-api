@@ -62,6 +62,7 @@ export class GenreResolver {
     return this.genreService.updateGenre(id, name);
   }
 
+  // TODO: Need to remove stale data from movie and rental collection after this operation
   @Mutation((returns) => GenreType)
   deleteGenre(@Args('genreInput') genreInput: GenreInput) {
     this.logger.verbose(

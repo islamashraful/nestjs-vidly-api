@@ -12,6 +12,9 @@ import { configuration } from './config/configuration';
 import { validationSchema } from './config/validation';
 import { RentalModule } from './rental/rental.module';
 import { Rental } from './rental/rental.entity';
+import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
+import { User } from './user/user.entity';
 
 @Module({
   imports: [
@@ -25,7 +28,7 @@ import { Rental } from './rental/rental.entity';
       url: `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.aums2.mongodb.net/nestjs-vidly-api?retryWrites=true&w=majority`,
       synchronize: true,
       useUnifiedTopology: true,
-      entities: [Genre, Customer, Movie, Rental],
+      entities: [Genre, Customer, Movie, Rental, User],
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: true,
@@ -34,6 +37,8 @@ import { Rental } from './rental/rental.entity';
     CustomerModule,
     MovieModule,
     RentalModule,
+    UserModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],

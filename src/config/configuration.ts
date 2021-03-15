@@ -3,6 +3,7 @@ export interface AppConfigurationType {
   port: string;
   DB_USERNAME: string;
   DB_PASSWORD: string;
+  JWT_SECRET: string;
 }
 
 export const configuration: () => AppConfigurationType = () => ({
@@ -10,4 +11,5 @@ export const configuration: () => AppConfigurationType = () => ({
   port: process.env.PORT,
   DB_USERNAME: process.env.DB_USERNAME,
   DB_PASSWORD: process.env.DB_PASSWORD,
+  JWT_SECRET: process.env.JWT_SECRET,
 });

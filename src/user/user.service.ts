@@ -4,6 +4,7 @@ import {
   Injectable,
   InternalServerErrorException,
 } from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
 import { CreateUserInput } from './create-user.input';
 import { User } from './user.entity';
 import { Repository } from 'typeorm';
@@ -15,19 +16,19 @@ export class UserService {
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
 
-  getUser(email: string) {
-    return this.userRepository.findOne({ email });
-  }
-
   async createUser(createUserInput: CreateUserInput) {
     const { name, email, password } = createUserInput;
+
+    const salt = await bcrypt.genSalt();
+    const hash = await bcrypt.hash(password, salt);
 
     try {
       const user = this.userRepository.create({
         id: uuid(),
         name,
         email,
-        password,
+        password: hash,
+        salt,
       });
       await this.userRepository.save(user);
     } catch (error) {
@@ -36,6 +37,19 @@ export class UserService {
       } else {
         throw new InternalServerErrorException();
       }
+    }
+  }
+
+  async validateUserPassword(
+    email: string,
+    password: string,
+  ): Promise<User | null> {
+    const user = await this.userRepository.findOne({ email });
+
+    if (user && (await user.validatePassword(password))) {
+      return user;
+    } else {
+      return null;
     }
   }
 }

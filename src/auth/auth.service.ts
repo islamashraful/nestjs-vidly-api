@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../user/user.service';
 import { JwtPayload } from './jwt-payload.interface';
@@ -18,13 +22,13 @@ export class AuthService {
     return this.generateJwtToken(signupInput.email);
   }
 
-  async login(loginInput: LoginInput) {
-    const user = await this.userService.getUser(loginInput.email);
-    if (!user) {
-      throw new BadRequestException('Invalid email or password');
+  async login({ email, password }: LoginInput) {
+    const user = await this.userService.validateUserPassword(email, password);
+    if (user) {
+      return this.generateJwtToken(email);
+    } else {
+      throw new UnauthorizedException('Invalid credentials.');
     }
-
-    return this.generateJwtToken(loginInput.email);
   }
 
   generateJwtToken(email: string) {
